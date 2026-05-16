@@ -1,0 +1,86 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  :root {
+    --bg-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --primary: #6366f1;
+    --secondary: #8b5cf6;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --surface-item: rgba(0, 0, 0, 0.03);
+    --surface-item-hover: rgba(0, 0, 0, 0.06);
+  }
+
+  .dark {
+    --bg-color: #0B0B0F;
+    --surface-color: #111116;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-muted: #9ca3af;
+    --glass-bg: rgba(17, 17, 22, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --surface-item: rgba(255, 255, 255, 0.05);
+    --surface-item-hover: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    @apply bg-background text-textMain antialiased min-h-screen relative transition-colors duration-300;
+  }
+  
+  /* Add background gradient and grid to body or a wrapper if needed */
+  body::before {
+    content: '';
+    @apply absolute inset-0 bg-grid-pattern pointer-events-none z-[-1];
+    opacity: 0.5;
+  }
+  .dark body::before {
+    opacity: 1;
+  }
+
+  body::after {
+    content: '';
+    @apply absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[150px] pointer-events-none z-[-1];
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color); 
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted); 
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-[var(--glass-bg)] backdrop-blur-md border border-[var(--glass-border)] rounded-2xl shadow-xl transition-colors duration-300;
+  }
+  .glass-card {
+    @apply bg-surface/50 backdrop-blur-sm hover:bg-surface hover:shadow-2xl hover:border-border border border-[var(--glass-border)] rounded-xl shadow-lg transition-all duration-300;
+  }
+  .input-field {
+    @apply w-full bg-surfaceItem border border-border rounded-lg px-4 py-2.5 text-textMain placeholder-textMuted focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all;
+  }
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-lg shadow-primary/25;
+  }
+  .btn-secondary {
+    @apply bg-surfaceItem hover:bg-surfaceItemHover border border-border text-textMain font-medium py-2 px-4 rounded-lg transition-all;
+  }
+  .badge {
+    @apply px-2.5 py-0.5 rounded-full text-xs font-medium border bg-surfaceItem text-textMain border-border;
+  }
+}
